@@ -11,7 +11,8 @@ const $order = document.querySelector('#order');
 const onClickButton = () => {
   // word가 falsy 값으로 되어 있으니까, !word를 통해 truthy 값으로 바꾸고
   // 제시된 단어의 '마지막 글자'와 '작성한 단어'의 첫 번째 글자가 같으면 if문 시작
-  if (!word || word[word.length - 1] === newWord[0]) {
+  // + 제시어는 3글자 이상이어야 한다.
+  if (!word || (word[word.length - 1] === newWord[0] && newWord.length === 3)) {
     word = newWord; // 입력한 단어가 '제시어'가 된다.
     $word.textContent = word; // 화면에 '제시어'가 나타나게 만든다.
     const order = Number($order.textContent); // '순서'를 나타나게 만든다.
