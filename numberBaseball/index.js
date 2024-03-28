@@ -26,6 +26,7 @@ function checkInput(input) {
   return true;
 }
 
+let out = 0;
 $form.addEventListener('submit', (event) => {
   event.target.preventDefault(); // form의 기본동작을 막는다.
   const value = $input.value;
@@ -54,6 +55,20 @@ $form.addEventListener('submit', (event) => {
   for (let i = 0; i < answer.length; i++) {
     const index = value.indexOf(answer[i]); // indexOf() : 일치하는 값 있으면 1, 아니면 -1 반환
     index > -1 ? (strike += 1) : (ball += 1);
+  }
+  if (strike === 0 && ball === 0) {
+    out++;
+    $logs.append(`${value}:아웃`, document.createElement('br'));
+  } else {
+    $logs.append(
+      `${value}:${strike} 스트라이크 ${ball} 볼`,
+      document.createElement('br')
+    );
+  }
+  if (out === 3) {
+    const message = document.createTextNode(`패배! 정답은 ${answer.join('')}`);
+    $logs.appendChild(message);
+    return;
   }
   $logs.append(
     `${value}: ${strike} 스트라이크 ${ball} 볼`,
